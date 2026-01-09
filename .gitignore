@@ -1,0 +1,33 @@
+# Rider IDE
+.idea/
+*.iml
+
+# macOS
+.DS_Store
+
+# Build outputs
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.suo
+*.userprefs
+*.vscode/
+
+# Blazor / wwwroot generated files (valfritt)
+# wwwroot/**/*.dll
+# wwwroot/**/*.js
+
+# NuGet packages
+*.nupkg
+packages/
+*.snupkg
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp

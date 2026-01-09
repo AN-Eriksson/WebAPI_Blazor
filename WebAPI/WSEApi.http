@@ -1,0 +1,6 @@
+@WSEApi_HostAddress = http://localhost:5017
+
+GET {{WSEApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

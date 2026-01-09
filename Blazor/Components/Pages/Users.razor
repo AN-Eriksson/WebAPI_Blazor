@@ -1,0 +1,29 @@
+@page "/users"
+@using Blazor.Services
+@using Blazor.Models
+@inject UserApiService UserService
+
+<h3>Users</h3>
+
+@if (_users == null)
+{
+    <p>Laddar...</p>
+}
+else
+{
+    <ul>
+        @foreach (var user in _users)
+        {
+            <li>@user.Name (@user.Email)</li>
+        }
+    </ul>
+}
+
+@code {
+    List<User>? _users;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _users = await UserService.GetUsersAsync();
+    }
+}

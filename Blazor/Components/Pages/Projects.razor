@@ -1,0 +1,31 @@
+@page "/projects"
+@using Blazor.Models
+@using Blazor.Services
+@inject ProjectApiService ProjectService
+
+<h3>Projects</h3>
+
+@if (_projects == null)
+{
+    <p>Laddar...</p>
+}
+else
+{
+    <ul>
+        @foreach (var project in _projects)
+        {
+            <li>@project.Name</li>
+        }
+    </ul>
+}
+
+@code {
+
+    List<Project>? _projects;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _projects = await ProjectService.GetProjectsAsync();
+    }
+
+}
