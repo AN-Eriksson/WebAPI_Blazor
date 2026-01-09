@@ -1,4 +1,5 @@
 @page "/projects"
+@rendermode InteractiveServer
 @using Blazor.Models
 @using Blazor.Services
 @inject ProjectApiService ProjectService
@@ -17,15 +18,42 @@ else
             <li>@project.Name</li>
         }
     </ul>
+
+    <div>
+        <button @onclick="Prev" disabled="@(_currentPage == 1)">Previous</button>
+        <span> Page @_currentPage </span>
+        <button @onclick="Next">Next</button>
+    </div>
 }
 
 @code {
 
     List<Project>? _projects;
+    int _currentPage = 1;
+    const int PageSize = 5;
 
     protected override async Task OnInitializedAsync()
     {
-        _projects = await ProjectService.GetProjectsAsync();
+        await LoadPageAsync(_currentPage);
+    }
+
+    async Task LoadPageAsync(int page)
+    {
+        _projects = await ProjectService.GetProjectsAsync(page, PageSize);
+    }
+
+    async Task Next()
+    {
+        _currentPage++;
+        await LoadPageAsync(_currentPage);
+    }
+
+    async Task Prev()
+    {
+        if (_currentPage == 1) return;
+        
+        _currentPage--;
+        await LoadPageAsync(_currentPage);
     }
 
 }

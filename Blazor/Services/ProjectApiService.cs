@@ -11,8 +11,10 @@ public class ProjectApiService
         _http = factory.CreateClient("MyApi");
     }
 
-    public async Task<List<Project>> GetProjectsAsync()
+    public async Task<List<Project>> GetProjectsAsync(int page, int pageSize)
     {
-        return await _http.GetFromJsonAsync<List<Project>>("api/projects") ?? new List<Project>();
+        var url = $"api/projects?page={page}&pageSize={pageSize}";
+        var res = await _http.GetFromJsonAsync<List<Project>>(url);
+        return res ?? new List<Project>();
     }
 }

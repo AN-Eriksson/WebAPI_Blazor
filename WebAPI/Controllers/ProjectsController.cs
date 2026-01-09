@@ -16,9 +16,9 @@ public class ProjectsController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
+    public async Task<ActionResult<IEnumerable<Project>>> GetProjects([FromQuery] int page, [FromQuery] int pageSize)
     {
-        var projects = await _projectService.GetAll();
+        var projects = await _projectService.GetAll(page, pageSize);
         return Ok(projects);
     }
 }

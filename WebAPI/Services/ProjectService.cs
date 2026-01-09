@@ -12,8 +12,8 @@ public class ProjectService
         _projectRepository = projectRepository;
     }
 
-    public async Task<IEnumerable<Project>> GetAll()
+    public async Task<IEnumerable<Project>> GetAll(int page, int pageSize)
     {
-        return await _projectRepository.GetAllAsync();
+        return await _projectRepository.GetAllAsync(page, pageSize);
     }
 }
