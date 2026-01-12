@@ -1,3 +1,4 @@
+using System.Data;
 using Dapper;
 using WebAPI.Models;
 
@@ -25,6 +26,14 @@ public class ProjectRepository
         LIMIT @PageSize OFFSET @Offset";
 
         using var conn = await _factory.CreateConnectionAsync();
-        return await conn.QueryAsync<Project>(sql, new { PageSize = pageSize, Offset = offset });
+        
+        // Dapper direkt SQL
+        // return await conn.QueryAsync<Project>(sql, new { PageSize = pageSize, Offset = offset });
+        
+        // Stored procedure
+        return await conn.QueryAsync<Project>(
+            "GetProjects",
+            new { p_PageSize = pageSize, p_Offset = offset },
+            commandType: CommandType.StoredProcedure);
     }
 }

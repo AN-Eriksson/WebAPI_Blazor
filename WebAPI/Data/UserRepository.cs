@@ -1,3 +1,4 @@
+using System.Data;
 using Dapper;
 using WebAPI.Models;
 
@@ -15,6 +16,13 @@ public class UserRepository
     public async Task<IEnumerable<User>> GetAllAsync()
     {
         using var conn = await _factory.CreateConnectionAsync();
-        return await conn.QueryAsync<User>("SELECT id, name, email FROM users");
+        
+        // Dapper direkt SQL
+        // return await conn.QueryAsync<User>("SELECT id, name, email FROM users");
+        
+        // Stored procedure
+        return await conn.QueryAsync<User>(
+            "GetUsers",
+            commandType: CommandType.StoredProcedure);
     }
 }
